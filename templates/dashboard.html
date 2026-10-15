@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Dashboard • {{ course }}{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>Dashboard Overview</h1>
+    <p>{{ course }} • Attendance Summary</p>
+</div>
+
+<div class="stat-row">
+    <div class="stat-box total">
+        <div class="glow"></div>
+        <div class="icon">👥</div>
+        <div class="number">{{ total }}</div>
+        <div class="label">Total Students</div>
+    </div>
+    <div class="stat-box present">
+        <div class="glow"></div>
+        <div class="icon">✅</div>
+        <div class="number" id="p-count">{{ present }}</div>
+        <div class="label">Present</div>
+    </div>
+    <div class="stat-box absent">
+        <div class="glow"></div>
+        <div class="icon">❌</div>
+        <div class="number" id="a-count">{{ absent }}</div>
+        <div class="label">Absent</div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-head"><h3>Quick Actions</h3></div>
+    <div style="display:flex;gap:12px;">
+        <a href="{{ url_for('mark') }}" class="btn btn-accent">📸 Scan Faces</a>
+    </div>
+</div>
+{% endblock %}

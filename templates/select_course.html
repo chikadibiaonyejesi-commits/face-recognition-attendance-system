@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Select Course{% endblock %}
+{% block content %}
+<div style="display:flex;justify-content:center;align-items:center;min-height:80vh;">
+    <div class="card" style="max-width:460px;width:100%;text-align:center;">
+        <div style="margin-bottom:32px;">
+            <div class="logo-icon" style="width:56px;height:56px;margin:0 auto 16px;font-size:1.8em;">👁️</div>
+            <h1 style="font-size:1.4em;">Welcome</h1>
+            <p style="color:var(--text2);margin-top:6px;">Enter a course code to start</p>
+        </div>
+        <form method="POST">
+            <input type="text" name="course_name" placeholder="e.g. CSC101, MTH201" required autofocus
+                   class="input-field" style="margin-bottom:20px;">
+            <button type="submit" class="btn btn-accent" style="width:100%;padding:14px;justify-content:center;font-size:1em;">
+                Begin Session →
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

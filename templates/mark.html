@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Scan • {{ course }}{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>Scan Faces</h1>
+    <p>{{ course }} • Point camera at student</p>
+</div>
+
+<div id="status-bar" class="status-line status-wait">⏳ Waiting for face...</div>
+
+<div class="video-box">
+    <img id="video-feed" src="{{ url_for('video_feed') }}" alt="Camera">
+</div>
+
+<div class="card">
+    <div class="card-head"><h3>Recently Marked</h3></div>
+    <table>
+        <thead><tr><th>Name</th><th>Reg Number</th><th>Department</th><th>Time</th></tr></thead>
+        <tbody id="recent-body">
+            <tr><td colspan="4"><div class="empty"><div class="big">🔍</div>Awaiting faces...</div></td></tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const bar = document.getElementById('status-bar');
+    async function update() {
+        const r = await fetch('/status'); const d = await r.json();
+        bar.textContent = d.message;
+        bar.className = 'status-line';
+        if (d.message.includes('Waiting')) bar.classList.add('status-wait');
+        else if (d.message.includes('Recognized')) bar.classList.add('status-see');
+        else if (d.message.includes('already')) bar.classList.add('status-done');
+        else if (d.message.includes('All checked')) bar.classList.add('status-finish');
+        const tb = document.getElementById('recent-body');
+        if (d.log && d.log.length > 0) {
+            tb.innerHTML = '';
+            d.log.reverse().forEach(e => {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td><strong>${e.name}</strong></td><td><span class="tag tag-purple">${e.reg_number}</span></td><td>${e.department||'N/A'}</td><td><span class="tag tag-green">${e.time}</span></td>`;
+                tb.appendChild(row);
+            });
+        }
+    }
+    setInterval(update, 1500); update();
+</script>
+{% endblock %}
