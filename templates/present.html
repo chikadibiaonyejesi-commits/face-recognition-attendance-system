@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Present • {{ course }}{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>Present Students</h1>
+    <p>{{ course }} • {{ students|length }} checked in</p>
+</div>
+<div class="card">
+    {% if students %}
+    <table>
+        <thead><tr><th>#</th><th>Name</th><th>Reg Number</th><th>Department</th><th>Time</th></tr></thead>
+        <tbody>
+            {% for s in students %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td><strong>{{ s.name }}</strong></td>
+                <td><span class="tag tag-purple">{{ s.reg_number }}</span></td>
+                <td>{{ s.department }}</td>
+                <td><span class="tag tag-green">{{ s.time }}</span></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty"><div class="big">📋</div>No students marked present yet</div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,6 @@
+dataset/
+features.pki
+*.csv
+.ideas/
+models/
+__pycache__/
